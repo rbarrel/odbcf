@@ -93,7 +93,6 @@ contains
         integer(SQLSMALLINT) :: name_length
         integer(SQLSMALLINT), allocatable :: column_count
         type(column), allocatable, target :: cols(:)
-        integer :: nErr, nMsg, iRec, cState
 
         allocate(column_count, source = 0_sqlsmallint)
         this%ierr = SQLNumResultCols(this%stmt, column_count)
