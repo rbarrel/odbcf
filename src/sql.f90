@@ -9,6 +9,7 @@ module sql
  private
 
  ! DECLARATION CONSTRUCTS
+ public :: get_ODBCVER
  public :: SQLAllocConnect
  public :: SQLAllocEnv
  public :: SQLAllocHandle
@@ -70,6 +71,13 @@ module sql
 
 ! WRAPPER DECLARATIONS
 interface
+function swigc_ODBCVER_get() &
+bind(C, name="_wrap_ODBCVER_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: fresult
+end function
+
 function SQLAllocConnect(environmenthandle, connectionhandle) &
 bind(C, name="SQLAllocConnect") &
 result(fresult)
@@ -742,6 +750,19 @@ integer(c_short) :: fresult
 end function
 
 end interface
+
+
+contains
+ ! MODULE SUBPROGRAMS
+function get_ODBCVER() &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+integer(C_INT) :: fresult 
+
+fresult = swigc_ODBCVER_get()
+swig_result = fresult
+end function
 
 
 end module

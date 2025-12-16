@@ -11,7 +11,6 @@ module sqlext
  ! DECLARATION CONSTRUCTS
  public :: SQLDriverConnect
  public :: SQLBrowseConnect
- public :: SQLBulkOperations
  public :: SQLColAttributes
  public :: SQLColumnPrivileges
  public :: SQLDescribeParam
@@ -28,7 +27,6 @@ module sqlext
  public :: SQLTablePrivileges
  public :: SQLDrivers
  public :: SQLBindParameter
- public :: SQLAllocHandleStd
  public :: SQLSetScrollOptions
  public :: TraceOpenLogFile
  public :: TraceCloseLogFile
@@ -67,15 +65,6 @@ integer(c_short), intent(in), value :: cbconnstrin
 character(kind=c_char) :: szconnstrout
 integer(c_short), intent(in), value :: cbconnstroutmax
 integer(c_short), intent(out) :: pcbconnstrout
-integer(c_short) :: fresult
-end function
-
-function SQLBulkOperations(statementhandle, operation) &
-bind(C, name="SQLBulkOperations") &
-result(fresult)
-use, intrinsic :: ISO_C_BINDING
-type(c_ptr), intent(in), value :: statementhandle
-integer(c_short), intent(in), value :: operation
 integer(c_short) :: fresult
 end function
 
@@ -296,16 +285,6 @@ integer(c_short), intent(in), value :: ibscale
 type(c_ptr), intent(in), value :: rgbvalue
 integer(c_long), intent(in), value :: cbvaluemax
 integer(c_long), intent(out) :: pcbvalue
-integer(c_short) :: fresult
-end function
-
-function SQLAllocHandleStd(fhandletype, hinput, phoutput) &
-bind(C, name="SQLAllocHandleStd") &
-result(fresult)
-use, intrinsic :: ISO_C_BINDING
-integer(c_short), intent(in), value :: fhandletype
-type(c_ptr), intent(in), value :: hinput
-type(c_ptr), intent(out) :: phoutput
 integer(c_short) :: fresult
 end function
 

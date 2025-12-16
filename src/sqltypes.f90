@@ -9,6 +9,8 @@ module sqltypes
  private
 
  ! DECLARATION CONSTRUCTS
+ public :: get_ODBCVER
+ public :: get_SIZEOF_LONG_INT
  ! struct struct tagDATE_STRUCT
  type, bind(C), public :: DATE_STRUCT
   integer(c_short), public :: year
@@ -29,7 +31,7 @@ module sqltypes
   integer(c_short), public :: hour
   integer(c_short), public :: minute
   integer(c_short), public :: second
-  integer(C_INT), public :: fraction
+  integer(C_LONG), public :: fraction
  end type TIMESTAMP_STRUCT
  ! typedef enum SQLINTERVAL
  enum, bind(c)
@@ -53,17 +55,48 @@ module sqltypes
     SQL_IS_MINUTE_TO_SECOND
  ! struct struct tagSQL_YEAR_MONTH
  type, bind(C), public :: SQL_YEAR_MONTH_STRUCT
-  integer(C_INT), public :: year
-  integer(C_INT), public :: month
+  integer(C_LONG), public :: year
+  integer(C_LONG), public :: month
  end type SQL_YEAR_MONTH_STRUCT
  ! struct struct tagSQL_DAY_SECOND
  type, bind(C), public :: SQL_DAY_SECOND_STRUCT
-  integer(C_INT), public :: day
-  integer(C_INT), public :: hour
-  integer(C_INT), public :: minute
-  integer(C_INT), public :: second
-  integer(C_INT), public :: fraction
+  integer(C_LONG), public :: day
+  integer(C_LONG), public :: hour
+  integer(C_LONG), public :: minute
+  integer(C_LONG), public :: second
+  integer(C_LONG), public :: fraction
  end type SQL_DAY_SECOND_STRUCT
+
+ integer, parameter :: swig_cmem_own_bit = 0
+ integer, parameter :: swig_cmem_rvalue_bit = 1
+ type, bind(C) :: SwigClassWrapper
+  type(C_PTR), public :: cptr = C_NULL_PTR
+  integer(C_INT), public :: cmemflags = 0
+ end type
+ ! struct struct __bigint_struct
+ type, public :: bigint_struct__
+  type(SwigClassWrapper), public :: swigdata
+ contains
+  procedure :: set_hiword => swigf___bigint_struct_hiword_set
+  procedure :: get_hiword => swigf___bigint_struct_hiword_get
+  procedure :: set_loword => swigf___bigint_struct_loword_set
+  procedure :: get_loword => swigf___bigint_struct_loword_get
+  procedure :: release => swigf___bigint_struct_release
+  procedure, private :: swigf___bigint_struct_op_assign__
+  generic :: assignment(=) => swigf___bigint_struct_op_assign__
+ end type bigint_struct__
+ ! struct struct __bigint_struct_u
+ type, public :: bigint_struct_u__
+  type(SwigClassWrapper), public :: swigdata
+ contains
+  procedure :: set_hiword => swigf___bigint_struct_u_hiword_set
+  procedure :: get_hiword => swigf___bigint_struct_u_hiword_get
+  procedure :: set_loword => swigf___bigint_struct_u_loword_set
+  procedure :: get_loword => swigf___bigint_struct_u_loword_get
+  procedure :: release => swigf___bigint_struct_u_release
+  procedure, private :: swigf___bigint_struct_u_op_assign__
+  generic :: assignment(=) => swigf___bigint_struct_u_op_assign__
+ end type bigint_struct_u__
  integer(C_INT), parameter, public :: SQL_MAX_NUMERIC_LEN = 16_C_INT
  ! struct struct tagSQL_NUMERIC_STRUCT
  type, bind(C), public :: SQL_NUMERIC_STRUCT
@@ -79,5 +112,341 @@ module sqltypes
   integer(c_short), public :: Data3
   integer(C_SIGNED_CHAR), dimension(8), public :: Data4
  end type SQLGUID
+ interface bigint_struct__
+  module procedure swigf_new___bigint_struct
+ end interface
+ interface bigint_struct_u__
+  module procedure swigf_new___bigint_struct_u
+ end interface
+
+! WRAPPER DECLARATIONS
+interface
+function swigc_ODBCVER_get() &
+bind(C, name="_wrap_ODBCVER_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: fresult
+end function
+
+function swigc_SIZEOF_LONG_INT_get() &
+bind(C, name="_wrap_SIZEOF_LONG_INT_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: fresult
+end function
+
+subroutine swigc___bigint_struct_hiword_set(farg1, farg2) &
+bind(C, name="_wrap___bigint_struct_hiword_set")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT), intent(in) :: farg2
+end subroutine
+
+function swigc___bigint_struct_hiword_get(farg1) &
+bind(C, name="_wrap___bigint_struct_hiword_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT) :: fresult
+end function
+
+subroutine swigc___bigint_struct_loword_set(farg1, farg2) &
+bind(C, name="_wrap___bigint_struct_loword_set")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT), intent(in) :: farg2
+end subroutine
+
+function swigc___bigint_struct_loword_get(farg1) &
+bind(C, name="_wrap___bigint_struct_loword_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT) :: fresult
+end function
+
+function swigc_new___bigint_struct() &
+bind(C, name="_wrap_new___bigint_struct") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper) :: fresult
+end function
+
+subroutine swigc_delete___bigint_struct(farg1) &
+bind(C, name="_wrap_delete___bigint_struct")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(inout) :: farg1
+end subroutine
+
+subroutine swigc___bigint_struct_op_assign__(farg1, farg2) &
+bind(C, name="_wrap___bigint_struct_op_assign__")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(inout) :: farg1
+type(SwigClassWrapper), intent(in) :: farg2
+end subroutine
+
+subroutine swigc___bigint_struct_u_hiword_set(farg1, farg2) &
+bind(C, name="_wrap___bigint_struct_u_hiword_set")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT), intent(in) :: farg2
+end subroutine
+
+function swigc___bigint_struct_u_hiword_get(farg1) &
+bind(C, name="_wrap___bigint_struct_u_hiword_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT) :: fresult
+end function
+
+subroutine swigc___bigint_struct_u_loword_set(farg1, farg2) &
+bind(C, name="_wrap___bigint_struct_u_loword_set")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT), intent(in) :: farg2
+end subroutine
+
+function swigc___bigint_struct_u_loword_get(farg1) &
+bind(C, name="_wrap___bigint_struct_u_loword_get") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(in) :: farg1
+integer(C_INT) :: fresult
+end function
+
+function swigc_new___bigint_struct_u() &
+bind(C, name="_wrap_new___bigint_struct_u") &
+result(fresult)
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper) :: fresult
+end function
+
+subroutine swigc_delete___bigint_struct_u(farg1) &
+bind(C, name="_wrap_delete___bigint_struct_u")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(inout) :: farg1
+end subroutine
+
+subroutine swigc___bigint_struct_u_op_assign__(farg1, farg2) &
+bind(C, name="_wrap___bigint_struct_u_op_assign__")
+use, intrinsic :: ISO_C_BINDING
+import :: swigclasswrapper
+type(SwigClassWrapper), intent(inout) :: farg1
+type(SwigClassWrapper), intent(in) :: farg2
+end subroutine
+
+end interface
+
+
+contains
+ ! MODULE SUBPROGRAMS
+function get_ODBCVER() &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+integer(C_INT) :: fresult 
+
+fresult = swigc_ODBCVER_get()
+swig_result = fresult
+end function
+
+function get_SIZEOF_LONG_INT() &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+integer(C_INT) :: fresult 
+
+fresult = swigc_SIZEOF_LONG_INT_get()
+swig_result = fresult
+end function
+
+subroutine swigf___bigint_struct_hiword_set(self, hiword)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct__), intent(in) :: self
+integer(C_INT), intent(in) :: hiword
+type(SwigClassWrapper) :: farg1 
+integer(C_INT) :: farg2 
+
+farg1 = self%swigdata
+farg2 = hiword
+call swigc___bigint_struct_hiword_set(farg1, farg2)
+end subroutine
+
+function swigf___bigint_struct_hiword_get(self) &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+class(bigint_struct__), intent(in) :: self
+integer(C_INT) :: fresult 
+type(SwigClassWrapper) :: farg1 
+
+farg1 = self%swigdata
+fresult = swigc___bigint_struct_hiword_get(farg1)
+swig_result = fresult
+end function
+
+subroutine swigf___bigint_struct_loword_set(self, loword)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct__), intent(in) :: self
+integer(C_INT), intent(in) :: loword
+type(SwigClassWrapper) :: farg1 
+integer(C_INT) :: farg2 
+
+farg1 = self%swigdata
+farg2 = loword
+call swigc___bigint_struct_loword_set(farg1, farg2)
+end subroutine
+
+function swigf___bigint_struct_loword_get(self) &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+class(bigint_struct__), intent(in) :: self
+integer(C_INT) :: fresult 
+type(SwigClassWrapper) :: farg1 
+
+farg1 = self%swigdata
+fresult = swigc___bigint_struct_loword_get(farg1)
+swig_result = fresult
+end function
+
+function swigf_new___bigint_struct() &
+result(self)
+use, intrinsic :: ISO_C_BINDING
+type(bigint_struct__) :: self
+type(SwigClassWrapper) :: fresult 
+
+fresult = swigc_new___bigint_struct()
+self%swigdata = fresult
+end function
+
+subroutine swigf___bigint_struct_release(self)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct__), intent(inout) :: self
+type(SwigClassWrapper) :: farg1 
+
+farg1 = self%swigdata
+if (btest(farg1%cmemflags, swig_cmem_own_bit)) then
+call swigc_delete___bigint_struct(farg1)
+endif
+farg1%cptr = C_NULL_PTR
+farg1%cmemflags = 0
+self%swigdata = farg1
+end subroutine
+
+subroutine swigf___bigint_struct_op_assign__(self, other)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct__), intent(inout) :: self
+type(bigint_struct__), intent(in) :: other
+type(SwigClassWrapper) :: farg1 
+type(SwigClassWrapper) :: farg2 
+
+farg1 = self%swigdata
+farg2 = other%swigdata
+call swigc___bigint_struct_op_assign__(farg1, farg2)
+self%swigdata = farg1
+end subroutine
+
+subroutine swigf___bigint_struct_u_hiword_set(self, hiword)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct_u__), intent(in) :: self
+integer(C_INT), intent(in) :: hiword
+type(SwigClassWrapper) :: farg1 
+integer(C_INT) :: farg2 
+
+farg1 = self%swigdata
+farg2 = hiword
+call swigc___bigint_struct_u_hiword_set(farg1, farg2)
+end subroutine
+
+function swigf___bigint_struct_u_hiword_get(self) &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+class(bigint_struct_u__), intent(in) :: self
+integer(C_INT) :: fresult 
+type(SwigClassWrapper) :: farg1 
+
+farg1 = self%swigdata
+fresult = swigc___bigint_struct_u_hiword_get(farg1)
+swig_result = fresult
+end function
+
+subroutine swigf___bigint_struct_u_loword_set(self, loword)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct_u__), intent(in) :: self
+integer(C_INT), intent(in) :: loword
+type(SwigClassWrapper) :: farg1 
+integer(C_INT) :: farg2 
+
+farg1 = self%swigdata
+farg2 = loword
+call swigc___bigint_struct_u_loword_set(farg1, farg2)
+end subroutine
+
+function swigf___bigint_struct_u_loword_get(self) &
+result(swig_result)
+use, intrinsic :: ISO_C_BINDING
+integer(C_INT) :: swig_result
+class(bigint_struct_u__), intent(in) :: self
+integer(C_INT) :: fresult 
+type(SwigClassWrapper) :: farg1 
+
+farg1 = self%swigdata
+fresult = swigc___bigint_struct_u_loword_get(farg1)
+swig_result = fresult
+end function
+
+function swigf_new___bigint_struct_u() &
+result(self)
+use, intrinsic :: ISO_C_BINDING
+type(bigint_struct_u__) :: self
+type(SwigClassWrapper) :: fresult 
+
+fresult = swigc_new___bigint_struct_u()
+self%swigdata = fresult
+end function
+
+subroutine swigf___bigint_struct_u_release(self)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct_u__), intent(inout) :: self
+type(SwigClassWrapper) :: farg1 
+
+farg1 = self%swigdata
+if (btest(farg1%cmemflags, swig_cmem_own_bit)) then
+call swigc_delete___bigint_struct_u(farg1)
+endif
+farg1%cptr = C_NULL_PTR
+farg1%cmemflags = 0
+self%swigdata = farg1
+end subroutine
+
+subroutine swigf___bigint_struct_u_op_assign__(self, other)
+use, intrinsic :: ISO_C_BINDING
+class(bigint_struct_u__), intent(inout) :: self
+type(bigint_struct_u__), intent(in) :: other
+type(SwigClassWrapper) :: farg1 
+type(SwigClassWrapper) :: farg2 
+
+farg1 = self%swigdata
+farg2 = other%swigdata
+call swigc___bigint_struct_u_op_assign__(farg1, farg2)
+self%swigdata = farg1
+end subroutine
+
 
 end module

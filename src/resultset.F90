@@ -116,7 +116,7 @@ contains
             end if
             cols(i)%name = clean_string(cols(i)%name)
             if (allocated(cols(i)%content)) deallocate(cols(i)%content)
-            allocate(character(merge(4096, min(4096, cols(i)%size), cols(i)%size <= 0)) :: cols(i)%content)
+            allocate(character(merge(4096, int(min(4096, cols(i)%size)), cols(i)%size <= 0)) :: cols(i)%content)
         end do
         call columns%addrange(cols)
         

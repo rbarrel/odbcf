@@ -66,7 +66,7 @@ contains
             integer(SQLLEN), allocatable :: sz
             integer(SQLRETURN) :: res
         
-            allocate(sz, source = 0) 
+            allocate(sz, source = 0_c_double) 
             buff = ''
             res = SQLBindCol(stmt, col_no, SQL_CHAR, c_loc(buff), &
                             len(buff, c_long), sz)
